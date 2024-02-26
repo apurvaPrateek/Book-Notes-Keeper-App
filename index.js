@@ -4,9 +4,9 @@ import pg from "pg";
 import "dotenv/config";
 
 const db = new pg.Client({
-  user: "postgres",
+  user: process.env.USER,
   password: process.env.PG_PASSWORD,
-  host: "localhost",
+  host: process.env.HOST_NAME,
   database: process.env.DATABASE,
   port: process.env.PORT,
 });
