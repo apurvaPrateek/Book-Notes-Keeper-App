@@ -7,10 +7,10 @@ const db = new pg.Client({
   user: "postgres",
   password: process.env.PG_PASSWORD,
   host: "localhost",
-  database: "Book Notes Keeper",
+  database: process.env.DATABASE,
   port: process.env.PORT,
 });
-const PORT = 3000;
+const PORT = process.env.LOCALHOST_PORT;
 
 
 const app = express();
