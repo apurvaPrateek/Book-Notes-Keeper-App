@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Notes Keeper</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>PRATEEK APURVA</h1>
+      <h2>BOOKS I'VE READ</h2>
+      <div class="header">
+        <p>
+          Tiny summary but <b>detailed notes for each</b>. Use the ISBN number
+          to find it from your local library or anywhere else.
+          <b>This page will constantly update as I read more</b>, so bookmark it
+          if you want to check back in a few months.
+        </p>
+
+        <p>
+          Sorted with <b>my top recommendations up top</b>.
+          <form action="/sort" method="post" id="sort-form">
+            <input type="hidden" name="sortBy" id="inputSortBy">
+            Sort by <a href="" class="sortByTitle">title</a>, <a href="" class="sortByNewest">newest</a>, or
+          <a href="" class="sortByBest">best</a>.
+          </form>
+        </p>
+        <a href="/add">Click to Add Books</a>
+      </div>
+      <hr />
+
+      <% reviews.forEach(item => { %>
+      <div class="book-container">
+        <div class="book-cover">
+          <img
+            src="https://covers.openlibrary.org/b/isbn/<%=item.isbn_id %>-M.jpg"
+            alt="book-cover"
+          />
+        </div>
+        <div class="review-content">
+          <div class="book-title"><%=item.title %> - by <%=item.author %></div>
+          <div class="info">
+            Date last updated: <%=item.date %>. How strongly I recommend it:
+            <%=item.rating %>/10
+          </div>
+          <div class="review"><%= item.review %></div>
+          <div class="buttons">
+            <form action="/add" method="post">
+              <input type="hidden" value="<%=item.id %>" name="id" />
+              <input type="hidden" value="<%= item.review %>" name="reviewContent" />
+              <input type="submit" value="Edit" class="edit-button" />
+            </form>
+            <form action="/delete" method="post" role="prefetch">
+              <input type="hidden" value="<%=item.id %>" name="id" />
+              <input
+                type="submit"
+                value="Delete"
+                class="delete-button"
+                onclick="return confirm('Are you sure you want to delete this item?')"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+      <%}); %>
+    </div>
+
+    <div class="popUps">
+      <% if(locals.status){ %> <% if(status=="updated") {%>
+      <div class="update-popUp">Your review has been successfully updated!</div>
+      <%}else if(status=="delete"){ %>
+      <div class="delete-popUp">Your review has been deleted.</div>
+      <%}else{ %>
+        <div class="add-popUp">Your review has been added.</div>
+      <%} %> <%} %>
+    </div>
+
+    <script>
+      setTimeout(() => {
+        document.querySelector(".popUps").remove();
+      }, 2000);
+
+      const sortForm = document.querySelector("#sort-form");
+      let sortByTitle = document.querySelector(".sortByTitle");
+      let sortByNewest = document.querySelector(".sortByNewest");
+      let sortByBest = document.querySelector(".sortByBest");
+      let inputSortBy = document.querySelector("#inputSortBy");
+
+      sortByBest.addEventListener("click",(event)=>{
+        inputSortBy.value = "best";
+        sortForm.submit();
+        event.preventDefault();
+      })
+      sortByNewest.addEventListener("click",(event)=>{
+        inputSortBy.value = "newest";
+        sortForm.submit();
+        event.preventDefault();
+      })
+      sortByTitle.addEventListener("click",(event)=>{
+        inputSortBy.value = "title";
+        sortForm.submit();
+        event.preventDefault();
+      })
+    </script>
+  </body>
+</html>

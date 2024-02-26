@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes Keeper</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>PRATEEK APURVA</h1>
+        <h2>To add a book, fill this form below</h2>
+        <hr />
+        <form action="/submit-review" method="post" class="book-form">
+            <input type="hidden" value ="<%= locals.item? item.id : null %>" name="id"/>
+            <label for="title">Book Title</label>
+            <input type="text" name="title" id="title" required/>
+            <label for="author" >Author</label>
+            <input type="text" name="author" id="author" required/>
+            <label for="review" >Review</label>
+            <textarea name="review"  cols="30" rows="10" placeholder="Enter review here" id="review" required></textarea>
+            <label for="rating">How strongly you recomment? (out of 10)</label>
+            <select name="rating" id="rating" required>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <label for="isbn">Enter ISBN Id of the book:(10 or 13 digits)</label>
+            <input type="text" id="isbn" name="isbn_id" required/>
+            <input type="submit" value="Submit" id="submit">
+        </form>
+    </div>
+    
+</body>
+
+<script>
+    if("<%= locals.item %>"){
+        console.log("Yo");
+        document.querySelector("#title").value =" <%= item.title %>";
+        document.querySelector("#author").value =" <%= item.author %>";
+      
+        document.querySelector("#rating").value = +"<%= item.rating %>";
+        document.querySelector("#isbn").value =" <%= item.isbn_id %>";
+        
+    }
+</script>
+</html>
