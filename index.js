@@ -6,12 +6,12 @@ import "dotenv/config";
 
 
 const db = new pg.Client({
-  user: process.env.USER,
-  password: process.env.PG_PASSWORD,
-  host: process.env.HOST_NAME,
-  database: process.env.DATABASE,
-  port: process.env.PORT,
-  // connectionString: process.env.POSTGRES_URL
+  // user: process.env.USER,
+  // password: process.env.PG_PASSWORD,
+  // host: process.env.HOST_NAME,
+  // database: process.env.DATABASE,
+  // port: process.env.PORT,
+  connectionString: process.env.POSTGRES_URL
 });
 const PORT = process.env.LOCALHOST_PORT;
 
