@@ -13,7 +13,7 @@ const db = new pg.Client({
   // port: process.env.PORT,
   connectionString: process.env.POSTGRES_URL
 });
-const PORT = process.env.LOCALHOST_PORT;
+const PORT = process.env.PORT;
 
 
 const app = express();
